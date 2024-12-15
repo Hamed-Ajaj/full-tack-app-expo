@@ -6,7 +6,7 @@ import React from 'react'
 const AuthLayout = () => {
   return (
     <Stack screenOptions={{
-      headerTransparent: true,
+      
     }}>
       <Stack.Screen name='sign-in' options={{
         headerShown: false
