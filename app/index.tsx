@@ -2,13 +2,13 @@
 import {  Image, ScrollView, StatusBar, Text, View } from 'react-native'
 import {images} from "../constants"
 import CustomButton from '@/components/CustomButton'
-import { Redirect, router } from 'expo-router'
+import { Redirect, router, SplashScreen } from 'expo-router'
 import SafeAreaContainer from '@/components/SafeAreaContainer'
 import { useGlobalContext } from '@/context/authContext'
 
 const RootLayout = () => {
   const{isLoading,isLoggedIn} = useGlobalContext();
-  if(isLoading) return <Text>loding...</Text>;
+  if(isLoading) return <Text>Loading...</Text> ;
   if(!isLoading&&isLoggedIn) return <Redirect href='/home'/>
 
   return (

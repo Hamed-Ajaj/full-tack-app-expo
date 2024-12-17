@@ -1,5 +1,5 @@
 import { getCurrentUser } from "@/lib/appwrite";
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
 import { Alert } from "react-native";
 
@@ -9,7 +9,7 @@ export const useGlobalContext = () => {
   return useContext(GlobalContext);
 };
 
-export const GlobalProvider = ({ children }: any) => {
+export const GlobalProvider = ({ children }: {children:ReactNode}) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);

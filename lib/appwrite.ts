@@ -1,5 +1,12 @@
 import { Alert } from "react-native";
-import { Account, Avatars, Client, Databases, ID, Query } from "react-native-appwrite";
+import {
+  Account,
+  Avatars,
+  Client,
+  Databases,
+  ID,
+  Query,
+} from "react-native-appwrite";
 
 export const appwriteConfig = {
   endpoint: "https://cloud.appwrite.io/v1",
@@ -45,7 +52,7 @@ export const createUser = async (
       }
     );
     return newUser;
-  } catch (err:any) {
+  } catch (err: any) {
     Alert.alert("Error", err.message);
   }
 };
@@ -54,7 +61,7 @@ export const loginUser = async (email: string, password: string) => {
   try {
     const session = await account.createEmailPasswordSession(email, password);
     return session;
-  } catch (error:any) {
+  } catch (error: any) {
     Alert.alert("Error", error.message);
   }
 };
@@ -62,18 +69,41 @@ export const loginUser = async (email: string, password: string) => {
 export const getCurrentUser = async () => {
   try {
     const currentAccount = await account.get();
-    if(!currentAccount) throw new Error("user not found");
+    if (!currentAccount) throw new Error("user not found");
 
     const currentUser = await db.listDocuments(
       appwriteConfig.databaseId,
       appwriteConfig.userCollectionId,
       [Query.equal("accountId", currentAccount.$id)]
-    )
-    if(!currentUser) throw new Error("user not found");
+    );
+    if (!currentUser) throw new Error("user not found");
 
     return currentUser.documents[0];
-
-  } catch (error:any) {
+  } catch (error: any) {
     Alert.alert("Error", error.message);
   }
-}
+};
+
+export const getPosts = async () => {
+  try {
+    const posts = await db.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.videoCollectionId
+    );
+    return posts.documents;
+  } catch (error: any) {
+    Alert.alert("Error", error.message);
+  }
+};
+export const getLatestPosts = async () => {
+  try {
+    const posts = await db.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.videoCollectionId,
+      [Query.orderDesc("$createdAt"), Query.limit(7)]
+    );
+    return posts.documents;
+  } catch (error: any) {
+    Alert.alert("Error", error.message);
+  }
+};
