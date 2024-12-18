@@ -13,7 +13,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/logo-small.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.hamed.aora"
@@ -33,6 +33,13 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
+      ],
+      [
+        "expo-video",
+          {
+            "supportsBackgroundPlayback": true,
+            "supportsPictureInPicture": true
+          }
       ]
     ],
     "experiments": {

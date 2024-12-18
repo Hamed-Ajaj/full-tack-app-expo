@@ -7,16 +7,16 @@ import { StatusBar } from "expo-status-bar";
 import SearchInput from "@/components/SearchInput";
 import TrendingSection from "@/components/TrendingSection";
 import EmptyState from "@/components/EmptyState";
-import { getPosts } from "@/lib/appwrite";
+import { getLatestPosts, getPosts } from "@/lib/appwrite";
 import useFetchData from "@/hooks/useFetchData";
 import VideoCard from "@/components/VideoCard";
 
 const HomeScreen = () => {
   const { user } = useGlobalContext();
+  const { data: latestPosts } = useFetchData(getLatestPosts);
   const { data: posts, isLoading, refetch } = useFetchData(getPosts);
   const [search, setSearch] = useState("");
   const [refreshing, setRefreshing] = useState(false);
-  console.log("posts", posts);
 
   const onRefresh = async () => {
     setRefreshing(true);
@@ -56,7 +56,7 @@ const HomeScreen = () => {
               <Text className="text-lg font-pregular text-gray-100 mb-3">
                 Latest Videos
               </Text>
-              <TrendingSection />
+              <TrendingSection latestPosts={latestPosts} />
             </View>
           </View>
         )}
